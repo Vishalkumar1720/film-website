@@ -1,0 +1,1406 @@
+/* ==========================================================================
+   ANJALI // THE CINEMATIC SCROLL FILM — STYLESHEET
+   ========================================================================== */
+
+:root {
+  /* Cinema Palette */
+  --film-bg: #060608;
+  --film-bg-card: rgba(16, 15, 20, 0.85);
+  --film-text: #f5f3ef;
+  --film-text-muted: #807c78;
+  --film-text-subtle: #4f4b47;
+  
+  /* Anamorphic Gold & Lens Flares */
+  --film-gold: #dfba73;
+  --film-gold-light: #f7e2b5;
+  --film-gold-dim: #8b6e36;
+  --film-glow: rgba(223, 186, 115, 0.35);
+  --film-flare: rgba(247, 226, 181, 0.15);
+  
+  /* Borders */
+  --film-border: rgba(223, 186, 115, 0.22);
+  --film-border-dim: rgba(255, 255, 255, 0.08);
+  
+  /* Typography */
+  --font-cinema-title: 'Cinzel', serif;
+  --font-cinema-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-cinema-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  
+  /* Motion Curves */
+  --ease-film: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background-color: var(--film-bg);
+  color: var(--film-text);
+  font-family: var(--font-cinema-sans);
+  font-size: 16px;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.film-body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--film-bg);
+  overflow-x: hidden;
+}
+
+/* Ambient Canvas */
+#film-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+/* 35mm Film Grain Layer */
+.film-grain-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Cinematic Letterbox HUD Bars */
+.cinema-hud {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.5rem;
+  background: rgba(6, 6, 8, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 90;
+  font-family: var(--font-cinema-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--film-text-muted);
+}
+
+.cinema-hud-top {
+  top: 0;
+  border-bottom: 1px solid var(--film-border-dim);
+}
+
+.cinema-hud-bottom {
+  bottom: 0;
+  border-top: 1px solid var(--film-border-dim);
+}
+
+.hud-left, .hud-right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hud-brand {
+  font-family: var(--font-cinema-title);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--film-gold);
+  font-weight: 700;
+}
+
+.hud-tag-date {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--film-text-muted);
+}
+
+.hud-timecode {
+  font-variant-numeric: tabular-nums;
+  color: var(--film-text);
+  font-weight: 600;
+}
+
+.hud-timeline-track {
+  width: min(40vw, 320px);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.hud-timeline-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--film-gold-dim), var(--film-gold));
+  transition: width 0.05s linear;
+}
+
+.hud-scene-index {
+  color: var(--film-gold);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   SCENE WRAPPER & SECTIONS
+   ========================================================================== */
+#film-viewport {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.film-scene {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem;
+  overflow: hidden;
+}
+
+.scene-inner {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.scene-inner.centered-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ==========================================================================
+   SCENE 01: THE OPENING (THE CINEMATIC REEL)
+   ========================================================================== */
+.scene-01-opening {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 1.5rem 2.5rem;
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.scene-01-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 680px;
+  width: 100%;
+}
+
+.scene-01-header {
+  margin-bottom: 0.85rem;
+}
+
+.title-sub-glow {
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  color: var(--film-gold);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.film-hero-title {
+  font-family: var(--font-cinema-title);
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #fff;
+  line-height: 1.05;
+  text-shadow: 0 0 30px var(--film-glow);
+  background: linear-gradient(180deg, #ffffff 40%, var(--film-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.4rem;
+}
+
+.film-hero-lead {
+  font-family: var(--font-cinema-serif);
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  font-style: italic;
+  color: var(--film-text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.35;
+}
+
+.aperture-reveal-box {
+  width: 100%;
+  max-width: 140px;
+  position: relative;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.aperture-glow-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--film-gold), transparent 60%, rgba(232, 180, 184, 0.4));
+  filter: blur(6px);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.aperture-mask {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95), 0 0 0 1px var(--film-border);
+}
+
+.aperture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: contrast(1.05);
+  transition: transform 1.2s var(--ease-film);
+}
+
+.aperture-reveal-box:hover .aperture-img {
+  transform: scale(1.06);
+}
+
+.film-scroll-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.4rem 1.2rem;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  user-select: none;
+  background: rgba(16, 15, 20, 0.4);
+  border: 1px solid rgba(223, 186, 115, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.film-scroll-prompt:hover {
+  transform: translateY(-2px);
+  border-color: var(--film-gold);
+  background: rgba(16, 15, 20, 0.8);
+}
+
+.scroll-mouse-icon {
+  width: 20px;
+  height: 32px;
+  border: 2px solid var(--film-gold);
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+  box-shadow: 0 0 12px var(--film-glow);
+}
+
+.scroll-mouse-wheel {
+  width: 3px;
+  height: 6px;
+  background: var(--film-gold);
+  border-radius: 2px;
+  animation: mouseScroll 1.6s ease-in-out infinite;
+}
+
+@keyframes mouseScroll {
+  0% { opacity: 0; transform: translateY(0); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(9px); }
+}
+
+.prompt-label-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.prompt-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--film-gold);
+  text-shadow: 0 0 10px var(--film-glow);
+}
+
+.prompt-caret {
+  width: 14px;
+  height: 14px;
+  color: var(--film-gold);
+  display: flex;
+  align-items: center;
+}
+
+.prompt-caret svg {
+  width: 100%;
+  height: 100%;
+  animation: promptBounce 1.5s infinite;
+}
+
+@keyframes promptBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* ==========================================================================
+   SCENE 02: CINEMATIC PORTRAIT (THE ZOOM)
+   ========================================================================== */
+.scene-02-portrait {
+  padding: 0;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.pinned-portrait-stage {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.portrait-stage-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.stage-zoom-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  transform-origin: center center;
+}
+
+.stage-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(6, 6, 8, 0.6) 70%, rgba(6, 6, 8, 0.95) 100%);
+  pointer-events: none;
+}
+
+.stage-text-overlay {
+  position: absolute;
+  bottom: 12%;
+  left: 5%;
+  right: 5%;
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 10;
+}
+
+.scene-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--film-gold);
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.stage-statement-1 h2 {
+  font-family: var(--font-cinema-serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.stage-statement-2 {
+  margin-top: 1.25rem;
+  opacity: 0;
+}
+
+.stage-statement-2 p {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  color: var(--film-text-muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   SCENE 03: PARALLAX MULTI-PLANE WORLD
+   ========================================================================== */
+.scene-03-parallax {
+  min-height: 150vh;
+}
+
+.depth-stage {
+  height: 90vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scene-label-floating {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--film-gold);
+}
+
+.depth-layer {
+  position: absolute;
+  will-change: transform;
+}
+
+.depth-card {
+  background: var(--film-bg-card);
+  border: 1px solid var(--film-border-dim);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+}
+
+.depth-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.layer-meta {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--film-text-muted);
+  border-top: 1px solid var(--film-border-dim);
+}
+
+/* Layer Positions */
+.layer-bg {
+  width: min(50vw, 320px);
+  aspect-ratio: 3 / 4;
+  top: 10%;
+  left: 5%;
+  z-index: 1;
+  filter: brightness(0.65) blur(1px);
+}
+
+.layer-mid {
+  width: min(65vw, 360px);
+  aspect-ratio: 9 / 16;
+  top: 15%;
+  right: 5%;
+  z-index: 3;
+  border: 1px solid var(--film-border);
+}
+
+.layer-fg {
+  width: min(45vw, 280px);
+  aspect-ratio: 3 / 4;
+  bottom: 5%;
+  left: 20%;
+  z-index: 5;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.95);
+}
+
+.depth-caption-block {
+  position: absolute;
+  bottom: 2%;
+  right: 8%;
+  z-index: 10;
+  max-width: 320px;
+  text-align: right;
+}
+
+.depth-title {
+  font-family: var(--font-cinema-title);
+  font-size: 1.4rem;
+  color: var(--film-gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+
+.depth-desc {
+  font-size: 0.85rem;
+  color: var(--film-text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   SCENE 04: THE IMAGE JOURNEY (TIMELINE CUTS)
+   ========================================================================== */
+.scene-04-cuts {
+  padding: 0;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.cut-container {
+  height: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+.cut-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cut-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.cut-frame.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cut-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cut-text {
+  position: absolute;
+  bottom: 12%;
+  left: 8%;
+  background: rgba(6, 6, 8, 0.85);
+  border: 1px solid var(--film-border);
+  padding: 1.25rem 1.75rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cut-meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--film-gold);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.cut-text h3 {
+  font-family: var(--font-cinema-serif);
+  font-size: 1.6rem;
+  color: #fff;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   SCENE 05: HORIZONTAL CINEMATIC TRACK
+   ========================================================================== */
+.scene-05-horizontal {
+  padding: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.horizontal-pan-wrap {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 4rem;
+  gap: 3rem;
+  will-change: transform;
+}
+
+.pan-intro-card {
+  flex: 0 0 min(85vw, 420px);
+  padding: 2.5rem;
+  background: var(--film-bg-card);
+  border: 1px solid var(--film-border);
+  border-radius: 16px;
+}
+
+.pan-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--film-gold);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.pan-title {
+  font-family: var(--font-cinema-title);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.pan-lead {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--film-text-muted);
+}
+
+.pan-slide {
+  flex: 0 0 min(85vw, 620px);
+  height: 68vh;
+}
+
+.pan-card.widescreen-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  border: 1px solid var(--film-border-dim);
+}
+
+.pan-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.pan-card:hover img {
+  transform: scale(1.04);
+}
+
+.widescreen-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(6, 6, 8, 0.9) 100%);
+}
+
+.wide-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--film-gold);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.widescreen-overlay h4 {
+  font-family: var(--font-cinema-serif);
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+/* ==========================================================================
+   SCENE 06: TYPOGRAPHIC INTERLUDE
+   ========================================================================== */
+.scene-06-interlude {
+  min-height: 80vh;
+  text-align: center;
+}
+
+.interlude-container {
+  max-width: 850px;
+}
+
+.interlude-quote {
+  font-family: var(--font-cinema-serif);
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--film-text);
+  margin-bottom: 2rem;
+}
+
+.quote-word {
+  display: inline-block;
+  opacity: 0.15;
+  filter: blur(4px);
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+  margin: 0 0.15em;
+}
+
+.quote-word.active {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0);
+}
+
+.quote-word.highlight {
+  font-style: italic;
+  color: #fff;
+}
+
+.quote-word.gold {
+  color: var(--film-gold);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.interlude-sub {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--film-text-muted);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   SCENE 07: DETAILS (FRAGMENTS OF A FILM)
+   ========================================================================== */
+.details-heading {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.details-heading h2 {
+  font-family: var(--font-cinema-title);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.details-heading p {
+  color: var(--film-text-muted);
+  font-size: 0.95rem;
+}
+
+.film-strip-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 650px) {
+  .film-strip-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.film-strip-card {
+  background: var(--film-bg-card);
+  border: 1px solid var(--film-border-dim);
+  border-radius: 12px;
+  padding: 2.25rem 2rem;
+  position: relative;
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.film-strip-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--film-border);
+}
+
+.strip-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+}
+
+.strip-num { color: var(--film-gold); font-weight: 600; }
+.strip-cat { color: var(--film-text-muted); }
+
+.strip-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.film-strip-card h3 {
+  font-family: var(--font-cinema-serif);
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.film-strip-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--film-text-muted);
+}
+
+/* ==========================================================================
+   SCENE 08: CINEMATIC TRANSITION (APERTURE SHIFT)
+   ========================================================================== */
+.scene-08-shift {
+  height: 60vh;
+  position: relative;
+}
+
+.aperture-shift-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.iris-flare-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--film-gold) 50%, transparent 80%);
+  filter: blur(15px);
+  transform: scale(1);
+  will-change: transform;
+}
+
+.shift-typography {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.shift-cue {
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  color: var(--film-gold);
+}
+
+.shift-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--film-border);
+  margin: 1rem auto 0;
+}
+
+/* ==========================================================================
+   SCENE 09: EMOTIONAL BUILD-UP (DECELERATION)
+   ========================================================================== */
+.scene-09-buildup {
+  min-height: 90vh;
+  text-align: center;
+}
+
+.buildup-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 650px;
+}
+
+.buildup-line {
+  font-family: var(--font-cinema-serif);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-style: italic;
+  color: var(--film-text-muted);
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+}
+
+.buildup-line.line-b {
+  color: var(--film-gold);
+}
+
+.buildup-pause-marker {
+  width: 6px;
+  height: 6px;
+  background: var(--film-gold);
+  border-radius: 50%;
+  margin-top: 2.5rem;
+  box-shadow: 0 0 12px var(--film-gold);
+}
+
+/* ==========================================================================
+   SCENE 10: THE FINAL REVEAL (HOLLYWOOD TITLE SEQUENCE)
+   ========================================================================== */
+.scene-10-reveal {
+  min-height: 110vh;
+  text-align: center;
+  position: relative;
+}
+
+.climax-film-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 680px;
+}
+
+.climax-optical-flare {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 700px);
+  height: min(90vw, 700px);
+  background: radial-gradient(circle, rgba(223, 186, 115, 0.22) 0%, rgba(247, 226, 181, 0.08) 45%, transparent 75%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.climax-film-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  color: var(--film-gold);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.climax-movie-title {
+  font-family: var(--font-cinema-title);
+  margin-bottom: 3rem;
+}
+
+.title-block {
+  display: block;
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--film-text);
+}
+
+.title-block-hero {
+  display: block;
+  font-size: clamp(4rem, 14vw, 8.5rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 30%, var(--film-gold) 80%, var(--film-gold-dim) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 50px var(--film-glow);
+}
+
+.climax-center-frame {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 3rem;
+}
+
+.center-frame-glass {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 0 1px var(--film-border);
+}
+
+.climax-film-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.center-frame-badge {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(6, 6, 8, 0.95);
+  border: 1px solid var(--film-border);
+  padding: 0.45rem 1.25rem;
+  border-radius: 100px;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--film-gold);
+  white-space: nowrap;
+}
+
+.film-celebrate-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--film-gold) 0%, var(--film-gold-dim) 100%);
+  color: #060608;
+  font-family: var(--font-cinema-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1.2rem 2.8rem;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(223, 186, 115, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.film-celebrate-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 45px rgba(223, 186, 115, 0.6);
+}
+
+/* ==========================================================================
+   SCENE 11: THE PERSONAL MESSAGE ("SHE IS BRAVE")
+   ========================================================================== */
+.film-letter-stage {
+  max-width: 740px;
+}
+
+.film-credits-letter {
+  background: var(--film-bg-card);
+  border: 1px solid var(--film-border);
+  border-radius: 20px;
+  padding: 3.5rem 2rem;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9);
+}
+
+@media (min-width: 768px) {
+  .film-credits-letter {
+    padding: 4.5rem 4rem;
+  }
+}
+
+.letter-filmic-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--film-border-dim);
+  margin-bottom: 2.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+}
+
+.slate-num { color: var(--film-gold); font-weight: 600; }
+.slate-target { color: var(--film-text-muted); }
+
+.filmic-salutation {
+  font-family: var(--font-cinema-title);
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.film-paragraph {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--film-text-muted);
+  margin-bottom: 1.75rem;
+  font-weight: 300;
+}
+
+.filmic-quote-callout {
+  font-family: var(--font-cinema-serif);
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-style: italic;
+  color: var(--film-gold);
+  line-height: 1.5;
+  margin: 2.5rem 0;
+  padding: 1.25rem 2rem;
+  background: rgba(223, 186, 115, 0.06);
+  border-left: 3px solid var(--film-gold);
+  border-radius: 0 8px 8px 0;
+}
+
+.filmic-signoff {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.signoff-note {
+  font-size: 0.85rem;
+  color: var(--film-text-subtle);
+  font-style: italic;
+}
+
+.signoff-name {
+  font-family: var(--font-cinema-serif);
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* ==========================================================================
+   SCENE 12: END CREDITS & CLOSING
+   ========================================================================== */
+.scene-12-outro {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  text-align: center;
+  padding: 5.5rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.outro-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.outro-sunset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 25% 35%;
+  filter: brightness(0.65) saturate(1.15) contrast(1.05);
+}
+
+.outro-lens-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    rgba(6, 6, 8, 0.82) 0%, 
+    rgba(6, 6, 8, 0.35) 22%, 
+    rgba(6, 6, 8, 0.45) 60%, 
+    rgba(6, 6, 8, 0.85) 88%,
+    var(--film-bg) 100%
+  );
+}
+
+.outro-content {
+  position: relative;
+  z-index: 10;
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.outro-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  color: var(--film-gold);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.outro-whisper {
+  font-family: var(--font-cinema-serif);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-style: italic;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+/* Featured Uncropped Panoramic Card (for mobile & portrait viewports) */
+.outro-featured-frame {
+  display: none;
+}
+
+@media (max-width: 800px), (max-aspect-ratio: 1/1) {
+  .outro-featured-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: min(92vw, 420px);
+    margin: 1.25rem auto 1.75rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .featured-photo-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--film-gold);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.95), 0 0 25px rgba(223, 186, 115, 0.25);
+  }
+
+  .featured-sunset-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+
+  .featured-photo-caption {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--film-gold);
+    margin-top: 0.6rem;
+    font-weight: 500;
+  }
+
+  /* Behind the card, blur the background into a rich ambient halo */
+  .outro-sunset-img {
+    filter: blur(28px) brightness(0.35) saturate(1.3) !important;
+    transform: scale(1.18);
+  }
+
+  .scene-12-outro {
+    padding: 4.5rem 1rem 3.5rem;
+    min-height: 100dvh;
+    height: auto;
+    overflow-y: visible;
+  }
+}
+
+.outro-quote {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: var(--film-text-muted);
+  font-style: italic;
+  margin-bottom: 1.75rem;
+}
+
+.film-credits-roll {
+  width: 100%;
+  max-width: 420px;
+  border-top: 1px solid var(--film-border-dim);
+  border-bottom: 1px solid var(--film-border-dim);
+  padding: 1.25rem 0;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.credit-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+}
+
+.credit-role { color: var(--film-text-subtle); }
+.credit-name { color: var(--film-gold); font-weight: 600; }
+
+.outro-action-bar {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.outro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: 100px;
+  background: rgba(16, 15, 20, 0.9);
+  border: 1px solid var(--film-border);
+  color: #fff;
+  font-family: var(--font-cinema-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.outro-btn svg {
+  width: 16px;
+  height: 16px;
+  color: var(--film-gold);
+}
+
+.outro-btn:hover {
+  background: var(--film-gold);
+  color: var(--film-bg);
+  border-color: var(--film-gold);
+}
+
+.outro-btn:hover svg {
+  color: var(--film-bg);
+}
+
+.outro-status-fineprint p {
+  font-size: 0.75rem;
+  color: var(--film-text-subtle);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+.return-home-link {
+  color: var(--film-gold);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  transition: opacity 0.3s ease;
+}
+
+.return-home-link:hover {
+  opacity: 0.7;
+}
+
+/* Toast */
+.film-toast {
+  position: fixed;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(16, 15, 20, 0.96);
+  border: 1px solid var(--film-gold);
+  color: #fff;
+  padding: 0.8rem 1.6rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.4s var(--ease-film);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px var(--film-glow);
+}
+
+.film-toast.active {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 600px) {
+  .cinema-hud { padding: 0.6rem 1rem; }
+  .hud-center { display: none; }
+  .pan-slide { height: 50vh; }
+  .depth-stage { height: 75vh; }
+  .layer-bg { left: 0; }
+  .layer-mid { right: 0; }
+  .layer-fg { left: 10%; }
+  .scene-12-outro {
+    padding: 3.5rem 1rem 3rem;
+  }
+  .outro-featured-frame {
+    max-width: min(90vw, 360px);
+  }
+  .film-credits-roll {
+    max-width: 320px;
+    padding: 1rem 0;
+    gap: 0.65rem;
+  }
+}

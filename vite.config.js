@@ -1,0 +1,22 @@
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
+export default defineConfig({
+  base: '/film-website/',
+
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        film: resolve(__dirname, 'film/index.html'),
+      },
+    },
+  },
+
+  server: {
+    host: true,
+  },
+});
