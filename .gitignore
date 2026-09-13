@@ -1,0 +1,9 @@
+node_modules/
+dist/
+optimized_photos/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+Thumbs.db

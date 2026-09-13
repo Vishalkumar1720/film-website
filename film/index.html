@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Anjali — The Cinematic Film · September 23</title>
+  <meta name="description" content="An immersive visual film controlled through scrolling, dedicated to Anjali.">
+  
+  <!-- OpenGraph for WhatsApp / Instagram / Social sharing -->
+  <meta property="og:title" content="Anjali — A Film by Scroll">
+  <meta property="og:description" content="An immersive cinematic visual journey celebrating Anjali.">
+  <meta property="og:type" content="video.other">
+  <meta property="og:image" content="/photos/photo8.jpg">
+
+  <!-- Google Fonts: Cinzel (Cinematic Titles) + Cormorant Garamond + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <script type="module" crossorigin src="/film-website/assets/film-DM1U0XJX.js"></script>
+  <link rel="modulepreload" crossorigin href="/film-website/assets/confetti.module-KZCgRP9K.js">
+  <link rel="stylesheet" crossorigin href="/film-website/assets/film-By0SXseR.css">
+</head>
+<body class="film-body">
+
+  <!-- Canvas for cinematic stardust and flare optics -->
+  <canvas id="film-canvas"></canvas>
+
+  <!-- 35mm Film Grain Simulation -->
+  <div class="film-grain-layer" aria-hidden="true"></div>
+
+  <!-- Cinematic Letterbox Bars & HUD Timecode -->
+  <aside class="cinema-hud cinema-hud-top" aria-hidden="true">
+    <div class="hud-left">
+      <span class="hud-brand">ANJALI</span>
+    </div>
+    <div class="hud-center">
+      <span class="hud-tag-date">SEPTEMBER 23, 2026</span>
+    </div>
+    <div class="hud-right">
+      <span class="hud-timecode" id="filmTimecode">00:00:00:00</span>
+    </div>
+  </aside>
+
+  <aside class="cinema-hud cinema-hud-bottom" aria-hidden="true">
+    <div class="hud-left">
+      <span class="hud-tag">REEL 23.09</span>
+    </div>
+    <div class="hud-center">
+      <div class="hud-timeline-track">
+        <div class="hud-timeline-fill" id="hudTimelineFill"></div>
+      </div>
+    </div>
+    <div class="hud-right">
+      <span class="hud-scene-index" id="sceneIndicator">SCENE 01 / 12</span>
+    </div>
+  </aside>
+
+  <!-- Main Scroll Canvas -->
+  <main id="film-viewport">
+
+    <!-- ================= SCENE 01: THE OPENING (THE CINEMATIC REEL) ================= -->
+    <section class="film-scene scene-01-opening" id="scene-01">
+      <div class="scene-inner centered-frame scene-01-content">
+        
+        <div class="scene-01-header fade-in-entry">
+          <span class="title-sub-glow">A MOTION PICTURE DEDICATION · SEPTEMBER 23</span>
+          <h1 class="film-hero-title">ANJALI</h1>
+          <p class="film-hero-lead">“There are moments that deserve to be remembered, and people who make life luminous.”</p>
+        </div>
+
+        <div class="aperture-reveal-box fade-in-entry" id="openingAperture">
+          <div class="aperture-glow-ring"></div>
+          <div class="aperture-mask">
+            <picture>
+              <source srcset="/film-website/photos/photo1.webp" type="image/webp">
+              <img src="/film-website/photos/photo1.jpg" alt="Anjali - Opening Still" class="aperture-img" id="openingHeroImg">
+            </picture>
+          </div>
+          <div class="aperture-border"></div>
+        </div>
+
+        <!-- Prominent Animated Scroll Cue -->
+        <div class="film-scroll-prompt fade-in-entry" id="filmStartPrompt" role="button" tabindex="0" aria-label="Scroll down to begin film">
+          <div class="scroll-mouse-icon">
+            <div class="scroll-mouse-wheel"></div>
+          </div>
+          <div class="prompt-label-wrap">
+            <span class="prompt-text">SCROLL TO ROLL FILM</span>
+            <div class="prompt-caret">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M7 10l5 5 5-5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCENE 02: CINEMATIC PORTRAIT (THE ZOOM) ================= -->
+    <section class="film-scene scene-02-portrait" id="scene-02">
+      <div class="scene-inner pinned-portrait-stage">
+        
+        <div class="portrait-stage-bg">
+          <picture>
+            <source srcset="/film-website/photos/photo1.webp" type="image/webp">
+            <img src="/film-website/photos/photo1.jpg" alt="Anjali Zoom Portrait" class="stage-zoom-img" id="portraitZoomImg">
+          </picture>
+          <div class="stage-vignette"></div>
+        </div>
+
+        <div class="stage-text-overlay" id="stageTextOverlay">
+          <div class="stage-statement-1" id="stageStmt1">
+            <span class="scene-tag">SCENE 02 // PRESENCE</span>
+            <h2>“Some people don’t need an introduction.”</h2>
+          </div>
+          <div class="stage-statement-2" id="stageStmt2">
+            <p>A quiet charisma that commands every room without trying. Effortless, grounded, and luminous.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCENE 03: PARALLAX MULTI-PLANE WORLD ================= -->
+    <section class="film-scene scene-03-parallax" id="scene-03">
+      <div class="scene-inner depth-stage">
+        <div class="scene-label-floating">DEPTH COMPOSITION // 35MM MULTI-PLANE</div>
+        
+        <!-- Background Layer (Moves slowly) -->
+        <div class="depth-layer layer-bg" id="depthBg">
+          <div class="depth-card card-bg">
+            <picture>
+              <source srcset="/film-website/photos/photo2.webp" type="image/webp">
+              <img src="/film-website/photos/photo2.jpg" alt="Sunkissed horizon still" loading="lazy">
+            </picture>
+            <span class="layer-meta">PLANE 01 · HORIZONS</span>
+          </div>
+        </div>
+
+        <!-- Midground Layer (Moves normally) -->
+        <div class="depth-layer layer-mid" id="depthMid">
+          <div class="depth-card card-mid">
+            <picture>
+              <source srcset="/film-website/photos/photo3.webp" type="image/webp">
+              <img src="/film-website/photos/photo3.jpg" alt="Smiling selfie still in blue" loading="lazy">
+            </picture>
+            <span class="layer-meta">PLANE 02 · THE SMILE</span>
+          </div>
+        </div>
+
+        <!-- Foreground Layer (Moves fast) -->
+        <div class="depth-layer layer-fg" id="depthFg">
+          <div class="depth-card card-fg">
+            <picture>
+              <source srcset="/film-website/photos/photo7.webp" type="image/webp">
+              <img src="/film-website/photos/photo7.jpg" alt="Street candid still" loading="lazy">
+            </picture>
+            <span class="layer-meta">PLANE 03 · THE CANDID</span>
+          </div>
+        </div>
+
+        <div class="depth-caption-block">
+          <h3 class="depth-title">Layers of Light</h3>
+          <p class="depth-desc">Different moments, identical grace. Moving through time and light.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCENE 04: THE IMAGE JOURNEY (TIMELINE CUTS) ================= -->
+    <section class="film-scene scene-04-cuts" id="scene-04">
+      <div class="scene-inner cut-container">
+        
+        <div class="cut-stage" id="cutStage">
+          <!-- Frame 1 -->
+          <div class="cut-frame frame-1 active" id="cut1">
+            <picture>
+              <source srcset="/film-website/photos/photo2.webp" type="image/webp">
+              <img src="/film-website/photos/photo2.jpg" alt="Frame 1 - Open Sky" class="cut-img">
+            </picture>
+            <div class="cut-text">
+              <span class="cut-meta">FRAME 01 · 10:45 AM</span>
+              <h3>Chasing Open Skies</h3>
+            </div>
+          </div>
+
+          <!-- Frame 2 -->
+          <div class="cut-frame frame-2" id="cut2">
+            <picture>
+              <source srcset="/film-website/photos/photo4.webp" type="image/webp">
+              <img src="/film-website/photos/photo4.jpg" alt="Frame 2 - Green Peaks" class="cut-img">
+            </picture>
+            <div class="cut-text">
+              <span class="cut-meta">FRAME 02 · 02:18 PM</span>
+              <h3>Stillness on the Ridges</h3>
+            </div>
+          </div>
+
+          <!-- Frame 3 -->
+          <div class="cut-frame frame-3" id="cut3">
+            <picture>
+              <source srcset="/film-website/photos/photo5.webp" type="image/webp">
+              <img src="/film-website/photos/photo5.jpg" alt="Frame 3 - Joyful Expression" class="cut-img">
+            </picture>
+            <div class="cut-text">
+              <span class="cut-meta">FRAME 03 · 04:30 PM</span>
+              <h3>The Spontaneous Spark</h3>
+            </div>
+          </div>
+
+          <!-- Frame 4 -->
+          <div class="cut-frame frame-4" id="cut4">
+            <picture>
+              <source srcset="/film-website/photos/IMG_0148.webp" type="image/webp">
+              <img src="/film-website/photos/IMG_0148.jpg" alt="Frame 4 - Rain Washed City" class="cut-img">
+            </picture>
+            <div class="cut-text">
+              <span class="cut-meta">FRAME 04 · 06:12 PM</span>
+              <h3>Warmth in the Rain</h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCENE 05: HORIZONTAL CINEMATIC TRACK ================= -->
+    <section class="film-scene scene-05-horizontal" id="scene-05">
+      <div class="horizontal-pan-wrap" id="horizontalPanWrap">
+        
+        <div class="pan-intro-card">
+          <span class="pan-label">CHAPTER 05 // WIDESCREEN DOLLY</span>
+          <h2 class="pan-title">The Anamorphic Reel</h2>
+          <p class="pan-lead">Gliding across continuous frames of life, landscape, and candid ease.</p>
+        </div>
+
+        <div class="pan-slide">
+          <div class="pan-card widescreen-frame">
+            <picture>
+              <source srcset="/film-website/photos/photo4.webp" type="image/webp">
+              <img src="/film-website/photos/photo4.jpg" alt="Mountain valley vista" loading="lazy">
+            </picture>
+            <div class="widescreen-overlay">
+              <span class="wide-tag">01 // BREATHE</span>
+              <h4>Peaks & Mists</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="pan-slide">
+          <div class="pan-card widescreen-frame">
+            <picture>
+              <source srcset="/film-website/photos/photo5.webp" type="image/webp">
+              <img src="/film-website/photos/photo5.jpg" alt="Joyful smile candid" loading="lazy">
+            </picture>
+            <div class="widescreen-overlay">
+              <span class="wide-tag">02 // SPIRIT</span>
+              <h4>Pure Laughter</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="pan-slide">
+          <div class="pan-card widescreen-frame">
+            <picture>
+              <source srcset="/film-website/photos/IMG_0148.webp" type="image/webp">
+              <img src="/film-website/photos/IMG_0148.jpg" alt="Rain promenade candid" loading="lazy">
+            </picture>
+            <div class="widescreen-overlay">
+              <span class="wide-tag">03 // MOMENTS</span>
+              <h4>City Rain</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="pan-slide">
+          <div class="pan-card widescreen-frame">
+            <picture>
+              <source srcset="/film-website/photos/photo6.webp" type="image/webp">
+              <img src="/film-website/photos/photo6.jpg" alt="Seated chic portrait" loading="lazy">
+            </picture>
+            <div class="widescreen-overlay">
+              <span class="wide-tag">04 // POISE</span>
+              <h4>Quiet Confidence</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCENE 06: TYPOGRAPHIC INTERLUDE ================= -->
+    <section class="film-scene scene-06-interlude" id="scene-06">
+      <div class="scene-inner interlude-container">
+        <div class="interlude-quote" id="kineticQuote">
+          <span class="quote-word">The</span>
+          <span class="quote-word">best</span>
+          <span class="quote-word">things</span>
+          <span class="quote-word">are</span>
+          <span class="quote-word">often</span>
+          <span class="quote-word highlight">hidden</span>
+          <span class="quote-word">in</span>
+          <span class="quote-word">the</span>
+          <span class="quote-word gold">quietest</span>
+          <span class="quote-word">moments.</span>
+        </div>
+        <div class="interlude-sub">A stillness that speaks louder than spectacle.</div>
+      </div>
+    </section>
+
+    <!-- ================= SCENE 07: DETAILS (FRAGMENTS OF A FILM) ================= -->
+    <section class="film-scene scene-07-details" id="scene-07">
+      <div class="scene-inner details-stage">
+        <div class="details-heading">
+          <span class="scene-tag">SCENE 07 // ARCHIVE</span>
+          <h2>Bespoke Fragments</h2>
+          <p>The small, authentic details that make someone paying attention smile.</p>
+        </div>
+
+        <div class="film-strip-grid">
+          
+          <!-- Fragment 1: Momos -->
+          <div class="film-strip-card">
+            <div class="strip-header">
+              <span class="strip-num">FRAG. 01</span>
+              <span class="strip-cat">GENUINE QUIRK</span>
+            </div>
+            <div class="strip-icon">🥟</div>
+            <h3>The Momo Connoisseur</h3>
+            <p>An undeniable, enthusiastic love for momos. Because life’s greatest comforts are simple, piping hot, and enjoyed with pure joy.</p>
+          </div>
+
+          <!-- Fragment 2: Tulips & Jasmine -->
+          <div class="film-strip-card">
+            <div class="strip-header">
+              <span class="strip-num">FRAG. 02</span>
+              <span class="strip-cat">BOTANICALS</span>
+            </div>
+            <div class="strip-icon">🌷</div>
+            <h3>Tulips & Jasmine</h3>
+            <p>Drawn to the sculpted poise of French tulips and the timeless, lingering sweetness of jasmine. A natural affinity for effortless beauty.</p>
+          </div>
+
+          <!-- Fragment 3: Mountain Skies -->
+          <div class="film-strip-card">
+            <div class="strip-header">
+              <span class="strip-num">FRAG. 03</span>
+              <span class="strip-cat">SANCTUARY</span>
+            </div>
+            <div class="strip-icon">⛰️</div>
+            <h3>Pines & High Winds</h3>
+            <p>A soul that belongs where overcast mountains meet the mist, finding calm in the vast quietude of nature.</p>
+          </div>
+
+          <!-- Fragment 4: Quiet Empathy -->
+          <div class="film-strip-card">
+            <div class="strip-header">
+              <span class="strip-num">FRAG. 04</span>
+              <span class="strip-cat">CHARACTER</span>
+            </div>
+            <div class="strip-icon">✨</div>
+            <h3>Quiet Empathy</h3>
+            <p>A rare gift of perceptive kindness. Making everyone feel safe, heard, and valued simply through her presence.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCENE 08: CINEMATIC TRANSITION (APERTURE SHIFT) ================= -->
+    <section class="film-scene scene-08-shift" id="scene-08">
+      <div class="scene-inner aperture-shift-stage">
+        <div class="iris-flare-circle" id="irisFlare"></div>
+        <div class="shift-typography" id="shiftTypography">
+          <span class="shift-cue">TRANSITIONING TO THE CELEBRATION</span>
+          <div class="shift-divider"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCENE 09: EMOTIONAL BUILD-UP (DECELERATION) ================= -->
+    <section class="film-scene scene-09-buildup" id="scene-09">
+      <div class="scene-inner buildup-stage">
+        <div class="buildup-portrait-glow"></div>
+        <div class="buildup-content">
+          <p class="buildup-line line-a" id="buildupA">And today...</p>
+          <p class="buildup-line line-b" id="buildupB">there is only one thing worth saying.</p>
+          <div class="buildup-pause-marker"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCENE 10: THE FINAL REVEAL (HOLLYWOOD TITLE SEQUENCE) ================= -->
+    <section class="film-scene scene-10-reveal" id="scene-10">
+      <div class="scene-inner climax-film-stage">
+        
+        <div class="climax-optical-flare"></div>
+
+        <div class="climax-film-header">
+          <span class="climax-film-tag">SEPTEMBER 23 · THE MAIN EVENT</span>
+          <h1 class="climax-movie-title">
+            <span class="title-block">HAPPY BIRTHDAY</span>
+            <span class="title-block-hero">ANJALI</span>
+          </h1>
+        </div>
+
+        <div class="climax-center-frame">
+          <div class="center-frame-glass">
+            <picture>
+              <source srcset="/film-website/photos/photo8.webp" type="image/webp">
+              <img src="/film-website/photos/photo8.jpg" alt="Anjali in silver shimmer saree" class="climax-film-img" id="climaxFilmImg">
+            </picture>
+          </div>
+          <div class="center-frame-badge">
+            <span>ETERNAL RADIANCE · XXIII . IX</span>
+          </div>
+        </div>
+
+        <div class="climax-trigger-wrap">
+          <button class="film-celebrate-btn" id="filmCelebrateBtn">
+            <span class="btn-lens-flare"></span>
+            <span class="btn-text">Illuminate Celebration</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCENE 11: THE PERSONAL MESSAGE ("SHE IS BRAVE") ================= -->
+    <section class="film-scene scene-11-letter" id="scene-11">
+      <div class="scene-inner film-letter-stage">
+        
+        <div class="film-credits-letter">
+          <div class="letter-filmic-header">
+            <span class="slate-num">SCENE 11 // THE DEDICATION</span>
+            <span class="slate-target">FOR: ANJALI</span>
+          </div>
+
+          <div class="filmic-text-content">
+            <h2 class="filmic-salutation">To Anjali,</h2>
+            
+            <p class="film-paragraph">
+              There is a rare kind of bravery that never demands a stage. It doesn't shout. It is quiet. It is the steady resilience to keep walking forward, to meet life with an unwavering chin up, and to protect your gentle spirit in a loud world.
+            </p>
+
+            <blockquote class="filmic-quote-callout">
+              “She is gentle in all the ways that matter, yet remarkably, undeniably brave.”
+            </blockquote>
+
+            <p class="film-paragraph">
+              You carry life's hurdles with grace, laugh with your whole soul, and treat everyone with sincere warmth. That quiet courage is your greatest light.
+            </p>
+
+            <p class="film-paragraph">
+              May this new chapter honor every challenge you have quietly overcome, fulfill every dream you hold close, and bring you boundless joy, peace, and endless plates of steaming hot momos.
+            </p>
+
+            <div class="filmic-signoff">
+              <span class="signoff-note">With greatest admiration,</span>
+              <span class="signoff-name">Always.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCENE 12: END CREDITS & CLOSING ================= -->
+    <section class="film-scene scene-12-outro" id="scene-12">
+      
+      <div class="outro-backdrop">
+        <picture>
+          <source srcset="/film-website/photos/photo9.webp" type="image/webp">
+          <img src="/film-website/photos/photo9.jpg" alt="Anjali river sunset panorama" class="outro-sunset-img">
+        </picture>
+        <div class="outro-lens-vignette"></div>
+      </div>
+
+      <div class="scene-inner outro-content">
+        <span class="outro-tag">THE EPILOGUE</span>
+        
+        <p class="outro-whisper">
+          “To the most loving girl.”
+        </p>
+
+        <!-- Uncropped Widescreen Sunset Panorama for Mobile/Portrait Screens -->
+        <div class="outro-featured-frame">
+          <div class="featured-photo-wrap">
+            <picture>
+              <source srcset="/film-website/photos/photo9.webp" type="image/webp">
+              <img src="/film-website/photos/photo9.jpg" alt="Anjali and Signature Bridge sunset panorama" class="featured-sunset-photo">
+            </picture>
+          </div>
+          <span class="featured-photo-caption">THE SIGNATURE SUNSET · SEPTEMBER 23</span>
+        </div>
+
+        <p class="outro-quote">
+          “Some stories are better felt than explained.”
+        </p>
+
+        <div class="film-credits-roll">
+          <div class="credit-row">
+            <span class="credit-role">STARRING</span>
+            <span class="credit-name">Anjali</span>
+          </div>
+          <div class="credit-row">
+            <span class="credit-role">SPECIAL OCCASION</span>
+            <span class="credit-name">September 23, 2026</span>
+          </div>
+          <div class="credit-row">
+            <span class="credit-role">CINEMATOGRAPHY</span>
+            <span class="credit-name">Her Unfiltered Life</span>
+          </div>
+          <div class="credit-row">
+            <span class="credit-role">DIRECTED BY</span>
+            <span class="credit-name">Pure Admiration</span>
+          </div>
+        </div>
+
+        <div class="outro-action-bar">
+          <button class="outro-btn" id="filmReplayBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+            <span>Replay Film</span>
+          </button>
+
+          <button class="outro-btn" id="filmShareBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"/>
+              <circle cx="6" cy="12" r="3"/>
+              <circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+            <span>Share Film</span>
+          </button>
+        </div>
+
+        <div class="outro-status-fineprint">
+          <p>A private visual celebration dedicated to Anjali.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="film-toast" id="filmToast">
+    <span id="filmToastText">Film link copied to clipboard!</span>
+  </div>
+
+</body>
+</html>
